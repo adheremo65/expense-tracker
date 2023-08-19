@@ -5,7 +5,7 @@ from sqlalchemy.ext.declarative import declarative_base
 engine = create_engine("sqlite:///expenses.db")
 Base = declarative_base()
 from datetime import datetime
-from sqlalchemy import Column,DateTime,String,Integer,Numeric
+from sqlalchemy import Column,DateTime,String,Integer,Numeric,ForeignKey
 
 
 
@@ -21,17 +21,19 @@ class User(Base):
 class Expense(Base):
     __tablename__ = "expenses"
     id = Column(Integer(), primary_key=True)
-    item = Column(String()),
-    size = Column(String()),
-    quntity = Column(Integer()),
-    price = Column(Numeric()),
+    item = Column(String())
+    size = Column(String())
+    quantity = Column(Integer())
+    price = Column(Numeric())
     total = Column(Integer())
-    date = Column(datetime(),default = datetime.now())
+    date = Column(DateTime,default = datetime.now())
+    user_id = Column(Integer(), ForeignKey(users.id))
 
     def __repr__(self):
         return f"item {Expense.id}: "\
-        + f"size {Expense.size}, "\
-        + f"quntity {Expense.quntity}, "\
-        + f"total {Expense.total}, "\
-        + f"date {Expense.date} "
+        + f"Size {Expense.size}, "\
+        + f"Quantity {Expense.quantity}, "\
+        + f"Total {Expense.total}, "\
+        + f"date {Expense.date}, "\
+        + f"user_id {User.id}"
 

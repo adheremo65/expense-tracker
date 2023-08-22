@@ -27,12 +27,13 @@ class info():
         if self.current_Identifier:
             item = input("Enter item name: ")
             size = input("Enter item size: ")
-            quantity = int(input("Enter quantity: "))
+            quantity = float(input("Enter quantity: "))
             price = float(input("Enter price: "))
             total = price * quantity
             expense_incured = Expense(item= item, size =size,quantity = quantity,price = price,total = total,user=self.current_Identifier)
             self.session.add(expense_incured)
             self.session.commit()
+            print()
         else:
              print("No user registered. Please register a user first.")
 

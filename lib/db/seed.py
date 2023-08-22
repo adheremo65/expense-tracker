@@ -33,7 +33,7 @@ class info():
             expense_incured = Expense(item= item, size =size,quantity = quantity,price = price,total = total,user=self.current_Identifier)
             self.session.add(expense_incured)
             self.session.commit()
-            print(expense_incured.total)
+            print(F"Your total expense is {expense_incured.total}")
         else:
              print("No user registered. Please register a user first.")
             

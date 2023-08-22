@@ -11,7 +11,7 @@ fake = Faker()
 
 if __name__ == '__main__':
     
-    engine = create_engine('sqlite:///:expenses.db')
+    engine = create_engine('sqlite:///expense.db')
     Session = sessionmaker(bind=engine)
     session = Session()
 
@@ -22,6 +22,9 @@ if __name__ == '__main__':
     expense = Expense(item="Item 1", size="Medium", quantity=2, price=10.0, total=20,user_id = 1)
     session.add(expense)
     session.commit()
+
+    print(user.id)
+    print(Expense.item)
 
     
 

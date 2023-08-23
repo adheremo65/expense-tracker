@@ -10,8 +10,8 @@ session = sessionmaker(bind=engine)
 class info():
     def __init__(self) -> None:
         self.engine = create_engine('sqlite:///expense.db')
-        Session = sessionmaker(bind=self.engine)
-        self.session = Session()
+        session = sessionmaker(bind=self.engine)
+        self.session = session()
         self.current_Identifier = None
 
     def register_user(self):
@@ -22,8 +22,6 @@ class info():
         self.session.commit()
         self.current_Identifier = user_identifier
         
-        
-
     def add_expense(self):
         #user_name = input("Enter your user name: ")
         if self.current_Identifier:
@@ -44,16 +42,15 @@ class info():
                     expense_incured = Expense(item= item, size =size,quantity = quantity,price = price,total = total,user=self.current_Identifier)
                     self.session.add(expense_incured)
                     self.session.commit()
-                    daily_expenses = session.query(Expense.total).filter_by(user=self.current_Identifier).all()
+                    daily_expenses = self.session.query(Expense.total).filter_by(user=self.current_Identifier).all()
                 def aggregate(expenses):
                     total_daily_expense = 0
                     for expense in expenses:
-                        total_daily_expense += expense[0]
-                        
+                        total_daily_expense += expense[0] 
                     return total_daily_expense
 
                 total_expense = aggregate(daily_expenses)
-                print(f"Your total expense for {item} is {total_expense}")
+                print(f"Your total expense  is {total_expense}")
 
                    
             else:
@@ -65,7 +62,7 @@ class info():
                 expense_incured = Expense(item= item, size =size,quantity = quantity,price = price,total = total,user=self.current_Identifier)
                 self.session.add(expense_incured)
                 self.session.commit()
-                print(F"Your total expense is {expense_incured.total}")
+                print(F"Your total expense for  {item} is  {expense_incured.total}")
 
                 # daily_expense = session.query(Expense.total).filter_by(user = User.user_name).all()
                

@@ -44,7 +44,18 @@ class info():
                     expense_incured = Expense(item= item, size =size,quantity = quantity,price = price,total = total,user=self.current_Identifier)
                     self.session.add(expense_incured)
                     self.session.commit()
-                    print(F"Your total expense is {expense_incured.total}")
+                    daily_expenses = session.query(Expense.total).filter_by(user=self.current_Identifier).all()
+                def aggregate(expenses):
+                    total_daily_expense = 0
+                    for expense in expenses:
+                        total_daily_expense += expense[0]
+                        
+                    return total_daily_expense
+
+                total_expense = aggregate(daily_expenses)
+                print(f"Your total expense for {item} is {total_expense}")
+
+                   
             else:
                 item = input("Enter item name: ")
                 size = input("Enter item size: ")
@@ -54,7 +65,9 @@ class info():
                 expense_incured = Expense(item= item, size =size,quantity = quantity,price = price,total = total,user=self.current_Identifier)
                 self.session.add(expense_incured)
                 self.session.commit()
-                daily_expense = session.query(Expense.total).filter_by(user = User.user_name).all()
+                print(F"Your total expense is {expense_incured.total}")
+
+                # daily_expense = session.query(Expense.total).filter_by(user = User.user_name).all()
                
                 # def aggregate(self):
                 #      self.total_daily_expense = 0
@@ -63,17 +76,7 @@ class info():
                 #         # print(self.total_daily_expense)
                 #      return self.total_daily_expense      
                 # print(F"Your total expense is {aggregate()}")
-                daily_expenses = session.query(Expense.total).filter_by(user=self.current_Identifier).all()
-
-                def aggregate(expenses):
-                    total_daily_expense = 0
-                    for expense in expenses:
-                        total_daily_expense += expense[0]
-                    return total_daily_expense
-
-                total_expense = aggregate(daily_expenses)
-                print(f"Your total expense for {Expense.item} {total_expense}")
-
+                
                 
         else:
                 print("No user registered. Please register a user first.")

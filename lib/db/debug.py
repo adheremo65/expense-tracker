@@ -25,7 +25,7 @@ if __name__ == '__main__':
     session.commit()
 
     print(user.id)
-    print(Expense.item)
+    print(expense.item)
 
     
 

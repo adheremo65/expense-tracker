@@ -4,6 +4,8 @@
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import engine,create_engine
 from models import User,Expense
+engine = create_engine("sqlite:///expense.db")
+session = sessionmaker(bind=engine)
 
 class info():
     def __init__(self) -> None:
@@ -25,18 +27,57 @@ class info():
     def add_expense(self):
         #user_name = input("Enter your user name: ")
         if self.current_Identifier:
-            item = input("Enter item name: ")
-            size = input("Enter item size: ")
-            quantity = float(input("Enter quantity: "))
-            price = float(input("Enter price: "))
-            total = price * quantity
-            expense_incured = Expense(item= item, size =size,quantity = quantity,price = price,total = total,user=self.current_Identifier)
-            self.session.add(expense_incured)
-            self.session.commit()
-            print(F"Your total expense is {expense_incured.total}")
+            new_items = int(input("how many items are you adding? "))
+            bath_enries = []
+            if new_items != 1:
+                for _ in range(new_items):
+                  
+                        
+                    item = input("Enter item name: ")
+                    size = input("Enter item size: ")
+                    quantity = float(input("Enter quantity: "))
+                    price = float(input("Enter price: "))
+                    total = price * quantity
+                    bath_enries.append((item,size,quantity,price,total))
+                for entry in bath_enries:
+                    item,size,quantity,price,total = entry
+                    expense_incured = Expense(item= item, size =size,quantity = quantity,price = price,total = total,user=self.current_Identifier)
+                    self.session.add(expense_incured)
+                    self.session.commit()
+                    print(F"Your total expense is {expense_incured.total}")
+            else:
+                item = input("Enter item name: ")
+                size = input("Enter item size: ")
+                quantity = float(input("Enter quantity: "))
+                price = float(input("Enter price: "))
+                total = price * quantity
+                expense_incured = Expense(item= item, size =size,quantity = quantity,price = price,total = total,user=self.current_Identifier)
+                self.session.add(expense_incured)
+                self.session.commit()
+                daily_expense = session.query(Expense.total).filter_by(user = User.user_name).all()
+               
+                # def aggregate(self):
+                #      self.total_daily_expense = 0
+                #      for expense in daily_expense:
+                #         self.total_daily_expense += expense[0]
+                #         # print(self.total_daily_expense)
+                #      return self.total_daily_expense      
+                # print(F"Your total expense is {aggregate()}")
+                daily_expenses = session.query(Expense.total).filter_by(user=self.current_Identifier).all()
+
+                def aggregate(expenses):
+                    total_daily_expense = 0
+                    for expense in expenses:
+                        total_daily_expense += expense[0]
+                    return total_daily_expense
+
+                total_expense = aggregate(daily_expenses)
+                print(f"Your total expense for {Expense.item} {total_expense}")
+
+                print("add more stuff")
         else:
-             print("No user registered. Please register a user first.")
-            
+                print("No user registered. Please register a user first.")
+                    
 
 
 

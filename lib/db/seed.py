@@ -74,7 +74,7 @@ class info():
                 total_expense = aggregate(daily_expenses)
                 print(f"Your total expense for {Expense.item} {total_expense}")
 
-                print("add more stuff")
+                
         else:
                 print("No user registered. Please register a user first.")
                     

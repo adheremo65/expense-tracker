@@ -29,8 +29,6 @@ class info():
             bath_enries = []
             if new_items != 1:
                 for _ in range(new_items):
-                  
-                        
                     item = input("Enter item name: ")
                     size = input("Enter item size: ")
                     quantity = float(input("Enter quantity: "))
@@ -64,17 +62,6 @@ class info():
                 self.session.commit()
                 print(F"Your total expense for  {item} is  {expense_incured.total}")
 
-                # daily_expense = session.query(Expense.total).filter_by(user = User.user_name).all()
-               
-                # def aggregate(self):
-                #      self.total_daily_expense = 0
-                #      for expense in daily_expense:
-                #         self.total_daily_expense += expense[0]
-                #         # print(self.total_daily_expense)
-                #      return self.total_daily_expense      
-                # print(F"Your total expense is {aggregate()}")
-                
-                
         else:
                 print("No user registered. Please register a user first.")
                     

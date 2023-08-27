@@ -2,7 +2,7 @@
 
 
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import engine,create_engine
+from sqlalchemy import engine,create_engine,func
 from models import User,Expense
 engine = create_engine("sqlite:///expense.db")
 session = sessionmaker(bind=engine)

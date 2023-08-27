@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from faker import Faker
 import random
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine,func
 from sqlalchemy.orm import sessionmaker
 
 from models import User,Expense 
@@ -21,7 +21,10 @@ if __name__ == '__main__':
     expense = Expense(item="Item 1", size="Medium", quantity=2, price=10.0, total=20,user_id = 1)
     session.add(expense)
     session.commit()
+    
 
+    x = session.query(User.user_name, func.sum(Expense.total).label("total_expense")).join(Expense).group_by(User.user_name).scalar()
+    print(x)
     print(user.id)
     print(expense.item)
 

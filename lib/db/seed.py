@@ -13,11 +13,12 @@ class info():
         session = sessionmaker(bind=self.engine)
         self.session = session()
         self.current_Identifier = None
+    
 
     def register_user(self):
         user_name = input("Enter your user name: ")
         password = input("Enter your password: ")
-        
+
         user_identifier = User(user_name= user_name, password = password)
         self.session.add(user_identifier)
         self.session.commit()

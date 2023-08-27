@@ -30,9 +30,10 @@ class display:
     def print_colored(self,text,color):
         print(text + color +Style.RESET_ALL )
 
-    def totat_expense(self):
-        if self.current_user:
-            
+    # def totat_expense(self):
+    #     if self.current_user:
+    #         total = 
+
            
     # def user_expense_table(self):
         if self.current_user:

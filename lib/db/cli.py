@@ -30,11 +30,7 @@ class display:
     def print_colored(self,text,color):
         print(text + color +Style.RESET_ALL )
 
-    def totat_expense(self):
-        # if self.current_user:
-        #     total = 
-
-           
+    def expense_per_item(self):
     # def user_expense_table(self):
         if self.current_user:
             user_expenses = (
@@ -55,42 +51,26 @@ class display:
             print(tabulate(table_data, headers=headers, tablefmt="grid"))
         else:
             print("Please log in first.")
-
-
-        # target_user_name = None 
-        # user = input("put your name")# Replace with the username you're interested in
-
-        # # Query to calculate the total expenses for the specified user
-        # total_expense_for_user = (
-        #     session.query(func.sum(Expense.total)).join(User).filter(User.user_name == target_user_name).scalar()
-        # )
-
-        # # Print the result
-        # print(f"Total expense for user {target_user_name}: {total_expense_for_user}")
-
         
-            
 
-            # total_expense = (self.session.query(func.sum(Expense.total)).filter(Expense.user == self.current_user)).all()
-            # incured = sum(expense[0] for expense in total_expense)
-         
-      
-          
-            # if total_expense is None:
-            #     total_expense = 0
-        #     print(f"your total expense is:  {incured}")
-        # else:
-        #     print("Please log in first.")
+    def over_all_expense(self):
+        if self.current_user:
+            total_expense_for_user = self.session.query(func.sum(Expense.total)).join(User).filter(User.user_name == self.current_user.user_name,User.password == self.current_user.password).scalar()
+
+            # Print the result
+        print(Fore.BLUE + f"Total expense for user name  {self.current_user.user_name} is : {total_expense_for_user}")
+        
 
 if __name__ == "__main__":
 
     total_spent = display()
     while True:
-        choise = input( Fore.YELLOW + "1.Log\n2.Disply_Total_Expense\n3.Exit\nEnter your choice: ")
+        choise = input( Fore.YELLOW + "1.Log\n2.Disply_Expense_per_item and total_expense and \n3.Exit\nEnter your choice: ")
         if choise == "1": 
             total_spent.login()
         elif choise == "2": 
-            total_spent.totat_expense()
+            total_spent.expense_per_item()
+            total_spent.over_all_expense()
         elif choise == "3":
             print("Goodbye!")
             break

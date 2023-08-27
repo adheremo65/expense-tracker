@@ -9,13 +9,6 @@ from tabulate import tabulate
 
 init()
 
-
-
-
-
-
-
-
 class info():
     def __init__(self) -> None:
         self.engine = create_engine('sqlite:///expense.db')

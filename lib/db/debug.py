@@ -35,17 +35,7 @@ if __name__ == '__main__':
     for user_name, total_expense in total_expenses_per_user_per_item:
         print(f"User: {user_name}, Total Expense: {total_expense}")
 
-    target_user_name = None 
-    target_user_name = input("put your name: ")# Replace with the username you're interested in
-    target_user_password= input("put your password: ")
-
-        # Query to calculate the total expenses for the specified user
-    total_expense_for_user = (
-            session.query(func.sum(Expense.total)).join(User).filter(User.user_name == target_user_name,User.password == target_user_password).scalar()
-        )
-
-        # Print the result
-    print(f"Total expense for user {target_user_name}: {total_expense_for_user}")
+    
 
     print(x)
     print(user.id)

@@ -23,7 +23,18 @@ if __name__ == '__main__':
     session.commit()
     
 
-    x = session.query(User.user_name, func.sum(Expense.total).label("total_expense")).join(Expense).group_by(User.user_name).scalar()
+    x = session.query(User.user_name, func.sum(Expense.total).label("total_expense")).join(Expense).group_by(User.user_name).all()
+
+    total_expenses_per_user_per_item = (
+    session.query(User.user_name, Expense.item, func.sum(Expense.total).label("total_expense"))
+    .join(Expense)
+    .group_by(User.user_name, User.password)
+    .all()
+)
+
+    for user_name, item, total_expense in total_expenses_per_user_per_item:
+        print(f"User: {user_name}, Item: {item}, Total Expense: {total_expense}")
+
     print(x)
     print(user.id)
     print(expense.item)

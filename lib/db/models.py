@@ -15,8 +15,8 @@ from sqlalchemy.orm import relationship
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer(),primary_key=True)
-    user_name = Column(String(),index=True)
-    password = Column(String())
+    user_name = Column(String(),index=True,unique=True)
+    password = Column(String(),unique=True)
     expenses = relationship("Expense", back_populates="user")
 
     def __repr__(self):

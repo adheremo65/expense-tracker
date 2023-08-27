@@ -56,6 +56,18 @@ class display:
         else:
             print("Please log in first.")
 
+
+        # target_user_name = None 
+        # user = input("put your name")# Replace with the username you're interested in
+
+        # # Query to calculate the total expenses for the specified user
+        # total_expense_for_user = (
+        #     session.query(func.sum(Expense.total)).join(User).filter(User.user_name == target_user_name).scalar()
+        # )
+
+        # # Print the result
+        # print(f"Total expense for user {target_user_name}: {total_expense_for_user}")
+
         
             
 

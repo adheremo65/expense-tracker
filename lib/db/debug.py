@@ -26,14 +26,25 @@ if __name__ == '__main__':
     x = session.query(User.user_name, func.sum(Expense.total).label("total_expense")).join(Expense).group_by(User.user_name).all()
 
     total_expenses_per_user_per_item = (
-    session.query(User.user_name, Expense.item, func.sum(Expense.total).label("total_expense"))
+    session.query(User.user_name, func.sum(Expense.total).label("total_expense"))
     .join(Expense)
     .group_by(User.user_name, User.password)
     .all()
 )
 
-    for user_name, item, total_expense in total_expenses_per_user_per_item:
-        print(f"User: {user_name}, Item: {item}, Total Expense: {total_expense}")
+    for user_name, total_expense in total_expenses_per_user_per_item:
+        print(f"User: {user_name}, Total Expense: {total_expense}")
+
+    target_user_name = None 
+    target_user_name = input("put your name")# Replace with the username you're interested in
+
+        # Query to calculate the total expenses for the specified user
+    total_expense_for_user = (
+            session.query(func.sum(Expense.total)).join(User).filter(User.user_name == target_user_name).scalar()
+        )
+
+        # Print the result
+    print(f"Total expense for user {target_user_name}: {total_expense_for_user}")
 
     print(x)
     print(user.id)

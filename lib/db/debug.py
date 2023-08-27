@@ -1,6 +1,4 @@
-#!/usr/bin/python3
-
-
+#!/usr/bin/env python
 from faker import Faker
 import random
 from sqlalchemy import create_engine

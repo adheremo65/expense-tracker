@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/aumer1/bin/env python
 
 from sqlalchemy import create_engine
 from faker import Faker

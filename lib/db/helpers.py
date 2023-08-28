@@ -25,14 +25,10 @@ class info():
         self.session.commit()
         self.current_Identifier = user_identifier
         
-    
-
     def add_expense(self):
         user_name = input("Enter your user name: ")
         password = input("Enter your password: ")
-
         user = self.session.query(User).filter_by(user_name=user_name, password=password).first()
-        
         if user:
             if self.current_Identifier is None:
                 self.current_Identifier = user
@@ -68,6 +64,7 @@ class info():
         else:
             print("User does not exist. Please register first.")
             self.register_user()
+            self.add_expense()
 
 if __name__ == '__main__':
     info_instance = info()

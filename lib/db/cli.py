@@ -6,6 +6,7 @@ from sqlalchemy.orm import sessionmaker
 engine = create_engine("sqlite:///expense.db")
 session = sessionmaker(bind=engine)
 from tabulate import tabulate
+from user_input import info
 
 init()
 
@@ -58,7 +59,7 @@ class display:
             total_expense_for_user = self.session.query(func.sum(Expense.total)).join(User).filter(User.user_name == self.current_user.user_name,User.password == self.current_user.password).scalar()
 
             # Print the result
-        print(Fore.BLUE + f"Total expense for user name  {self.current_user.user_name} is : {total_expense_for_user}")
+        print(Fore.BLUE + f"Total expense for user name  {self.current_user.user_name} is : $ {total_expense_for_user}")
         
 
 if __name__ == "__main__":
